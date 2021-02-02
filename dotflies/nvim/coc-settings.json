@@ -1,0 +1,22 @@
+{
+  "clangd.enabled": true, 
+  "clangd.semanticHighlighting": true,
+  "clangd.fallbackFlags": ["-std=c++20"],
+  "clangd.arguments": [
+    "--clang-tidy",
+   // "--completion-style=detailed",
+    "--background-index",
+    "--header-insertion=never"
+  ],
+  "languageserver": {
+    "d": {
+      "command": "/home/inat/.dub/packages/.bin/dls-latest/dls",
+      "args": ["--stdio"],
+      "filetypes": ["d"],
+      "trace.server": "off",
+      "rootPatterns": ["dub.json", "dub.sdl"],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  }
+}

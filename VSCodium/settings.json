@@ -1,0 +1,42 @@
+{
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "window.zoomLevel": 0,
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontSize": 13,
+  "editor.fontWeight": "300",
+  "editor.letterSpacing": 1.2,
+  "editor.lineHeight": 22,
+  "editor.fontLigatures": true,
+  "editor.minimap.enabled": false,
+  "workbench.list.automaticKeyboardNavigation": false,
+  "editor.lineNumbers": "relative",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Community Material Theme",
+  "clang-format.language.cpp.enable": true,
+  "clang-format.assumeFilename": ".clang-format",
+  "clangd.semanticHighlighting": true,
+  "clangd.fallbackFlags": [
+    "-std=c++20"
+  ],
+  "clangd.arguments": [
+    // "--clangd-tidy",
+    "--background-index",
+    "--header-insertion=never"
+  ],
+  "[cpp]": {
+    // "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.tabSize": 2
+  },
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "all",
+  "files.insertFinalNewline": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "editor.wordWrap": "on",
+  "editor.formatOnPaste": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "top",
+}

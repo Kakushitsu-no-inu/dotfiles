@@ -1,0 +1,160 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet pr "Print line to the console"
+std::cout << ${1} << std::endl;
+$0
+endsnippet
+
+snippet ps "Print string to the console"
+std::cout << "${1}" << std::endl;
+$0
+endsnippet
+
+snippet sz "Sizeof"
+sizeof
+endsnippet
+
+snippet st
+struct ${1:StructName} {
+	$2
+};
+$0
+endsnippet
+
+snippet cl "class"
+class ${1:ClassName} {
+	$2
+};
+$0
+endsnippet
+
+snippet fora "For-loop"
+for (${1:auto} ${2:i} = ${3:0}; $2 < ${4:size}; ++$2) {
+	$3
+}
+$0
+endsnippet
+
+snippet fori "For-loop for int"
+for (int ${1:i} = 0; $1 < ${2:size}; ++$1) {
+	$3	
+}
+$0
+endsnippet
+
+snippet fore "For-each loop"
+for (auto &${1:el} : ${2:container}) {
+	$3
+}
+$0
+endsnippet
+
+snippet forit "For-loop for iterator"
+for (auto ${1:it} = std::begin(${2:container}); $1 != std::end($2); ++$1) {
+	$4
+}
+$0
+endsnippet
+
+snippet sw "Switch"
+switch (${1}) {
+	case $2:
+		$3
+		break;
+	$4
+}
+$0
+endsnippet
+
+snippet case "Case"
+case $1:
+	$2
+	break;
+$0
+endsnippet
+
+snippet guard "Guard for header"
+#ifndef ${1:`!v substitute(expand('%:t:r'),'.*','\U&\E','')`_H}
+#define $1
+
+$0
+
+#endif /* $1 */
+endsnippet
+
+snippet p "Print to the console"
+std::cout << ${1};
+$0
+endsnippet
+
+snippet pl "Print endline"
+std::cout << std::endl;
+$0
+endsnippet
+
+snippet pflush "Print flush"
+std::cout << std::flush;
+$0
+endsnippet
+
+snippet fn "Function declaration"
+auto ${1:FunctionName}(${2:params}) -> ${3:void};
+$0
+endsnippet
+
+snippet impl "Implementation of function"
+auto ${1:FunctionName}(${2:params}) -> ${3:void} {
+	$4
+}
+$0
+endsnippet
+
+snippet incl
+#include <${1:iostream}>
+$0
+endsnippet
+
+snippet main "Main function"
+auto main() -> int {
+	$0
+	return 0;
+}
+endsnippet
+
+snippet maina "Main function with arguments"
+auto main(int argc, char **argv) -> int {
+	$0
+	return 0;
+}
+endsnippet
+
+snippet rd
+std::rand() % ${1:10}$0
+endsnippet
+
+snippet sr
+std::srand(static_cast<unsigned>(std::time(nullptr)));
+endsnippet
