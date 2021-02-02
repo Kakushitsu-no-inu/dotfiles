@@ -32,4 +32,5 @@ Plug 'airblade/vim-gitgutter'
 Plug 'andymass/vim-matchup'
 "Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/space-vim-dark'
+Plug 'ollykel/v-vim'
 call plug#end()

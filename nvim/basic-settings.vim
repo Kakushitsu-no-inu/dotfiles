@@ -153,6 +153,10 @@ augroup indents
         autocmd FileType text,markdown setlocal expandtab
 augroup END
 
+"autocmd FileType cppm setl filetype=cpp
+
+autocmd BufNewFile,BufRead *.cppm,*.iix,*.mxx setfiletype cpp
+
 augroup highlight_follows_vim
         autocmd!
         autocmd! FocusGained * set cursorline
