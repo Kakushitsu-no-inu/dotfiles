@@ -1,6 +1,6 @@
 [user]
-    name = inata1ur
-    email = inat.alur@gmail.com
+    name = weiterins
+    email = weiterins@gmail.com
 [core]
     pager = less -S
     excludesfile = ~/bin/rc/gitignore_global
