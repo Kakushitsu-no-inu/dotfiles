@@ -1,330 +1,222 @@
-" All system-wide defaults are set in $VIMRUNTIME/archlinux.vim (usually just
-" /usr/share/vim/vimfiles/archlinux.vim) and sourced by the call to :runtime
-" you can find below.  If you wish to change any of those settings, you should
-" do it in this file (/etc/vimrc), since archlinux.vim will be overwritten
-" everytime an upgrade of the vim packages is performed.  It is recommended to
-" make changes after sourcing archlinux.vim since it alters the value of the
-" 'compatible' option.
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages.
-runtime! archlinux.vim
-
-" If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
-" Or better yet, read /usr/share/vim/vim80/vimrc_example.vim or the vim manual
-" and configure vim to your own liking!
-
-" do not load defaults if ~/.vimrc is missing
-"let skip_defaults_vim=1
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vundle For Managing Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'mattn/emmet-vim'
-Plug 'scrooloose/nerdtree'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
-Plug 'ryanoasis/vim-devicons'
-Plug 'kyoz/purify', { 'rtp': 'vim' }
+"{{ The Basics }}
+    Plug 'gmarik/Vundle.vim'                           " Vundle
+    Plug 'itchyny/lightline.vim'                       " Lightline statusbar
+    Plug 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
+    Plug 'frazrepo/vim-rainbow'
+"{{ File management }}
+    Plug 'vifm/vifm.vim'                               " Vifm
+    Plug 'scrooloose/nerdtree'                         " Nerdtree
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'     " Highlighting Nerdtree
+    Plug 'ryanoasis/vim-devicons'                      " Icons for Nerdtree
+"{{ Productivity }}
+    Plug 'vimwiki/vimwiki'                             " VimWiki 
+    Plug 'jreybert/vimagit'                            " Magit-like plugin for vim
+"{{ Tim Pope Plugins }}
+    Plug 'tpope/vim-surround'                          " Change surrounding marks
+"{{ Syntax Highlighting and Colors }}
+    Plug 'PotatoesMaster/i3-vim-syntax'                " i3 config highlighting
+    Plug 'kovetskiy/sxhkd-vim'                         " sxhkd highlighting
+    Plug 'vim-python/python-syntax'                    " Python highlighting
+    Plug 'ap/vim-css-color'                            " Color previews for CSS
+"{{ Junegunn Choi Plugins }}
+    Plug 'junegunn/goyo.vim'                           " Distraction-free viewing
+    Plug 'junegunn/limelight.vim'                      " Hyperfocus on a range
+    Plug 'junegunn/vim-emoji'                          " Vim needs emojis!
 
 call plug#end()
 
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+" filetype plugin on
 
-" General Settings
-set encoding=UTF-8
-syntax on             " enable syntax processing
-set tabstop=2       	" number of visual spaces per TAB
-set softtabstop=2   	" number of spaces in tab when editing
-set expandtab       	" tabs are spaces
-set number              " show line numbers
-set showcmd             " show command in bottom bar
-set cursorline          " highlight current line
-filetype indent on      " load filetype-specific indent files
-set wildmenu            " visual autocomplete for command menu
-set lazyredraw          " redraw only when we need to.
-set showmatch           " highlight matching [{()}]
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
-set foldenable          " enable folding
-set foldlevelstart=10   " open most folds by default
-set foldnestmax=10      " 10 nested fold max
-set noshowmode			    " Remove status mode
-set guifont=DroidSansMono\ Nerd\ Font\ 11
-set smartindent
-set shiftwidth=2
-set clipboard=unnamed
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
-" ColorScheme
-colorscheme purify
-hi Normal guibg=NONE ctermbg=NONE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set path+=**					" Searches current directory recursively.
+set wildmenu					" Display all matches when tab complete.
+set incsearch                   " Incremental search
+set hidden                      " Needed to keep multiple buffers open
+set nobackup                    " No auto backups
+set noswapfile                  " No swap
+set t_Co=256                    " Set if term supports 256 colors.
+set number relativenumber       " Display line numbers
+set clipboard=unnamedplus       " Copy/paste between vim and other programs.
+syntax enable
+let g:rehash256 = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Remap Keys
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap ESC to ii
+:imap ii <Esc>
 
-" mappings
-let mapleader=","       " leader is comma instead of \
-
-" nnoremap
-nnoremap <leader><space> :nohlsearch<CR>	" turn off search highlight
-nnoremap <space> za 						          " space open/closes folds
-set foldmethod=indent   					        " fold based on indent level
-nnoremap j gj								              " move vertically by visual line
-nnoremap k gk								              " move vertically by visual line
-nnoremap <leader>u :GundoToggle<CR>			  " toggle gundo
-nnoremap <leader>a :Ag						        " open ag.vim
-nnoremap <F4>      : NERDTreeToggle<CR>		" Toggle Nerdtree
-nnoremap <F3>      : NERDTreeFocus<CR>    " Switch
-nnoremap <  :tabprevious<CR>    " TABS
-nnoremap > :tabnext<CR>
-nnoremap <Leader>z : FZF<cr>              " FZF
-
-
-" CtrlP settings
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" Can be enabled or disabled
-" add glyphs to all modes
-let g:webdevicons_enable_ctrlp = 1
-
-call pathogen#infect()                      " use pathogen
-" call pathogen#runtime_append_all_bundles()  " use pathogen
-
-
-" allows cursor change in tmux mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
-
-augroup configgroup
-    autocmd!
-    autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
-                \:call <SID>StripTrailingWhitespaces()
-    autocmd FileType java setlocal noexpandtab
-    autocmd FileType java setlocal list
-    autocmd FileType java setlocal listchars=tab:+\ ,eol:-
-    autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-    autocmd FileType php setlocal expandtab
-    autocmd FileType php setlocal list
-    autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-    autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-    autocmd FileType ruby setlocal tabstop=2
-    autocmd FileType ruby setlocal shiftwidth=2
-    autocmd FileType ruby setlocal softtabstop=2
-    autocmd FileType ruby setlocal commentstring=#\ %s
-    autocmd FileType python setlocal commentstring=#\ %s
-    autocmd BufEnter *.cls setlocal filetype=java
-    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-    autocmd BufEnter Makefile setlocal noexpandtab
-    autocmd BufEnter *.sh setlocal tabstop=2
-    autocmd BufEnter *.sh setlocal shiftwidth=2
-    autocmd BufEnter *.sh setlocal softtabstop=2
-augroup END
-
-
-augroup nerdtree
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-augroup END
-
-augroup nerdtreehidecwd
-  autocmd!
-  autocmd FileType nerdtree setlocal conceallevel=3
-          \ | syntax match NERDTreeHideCWD #^[</].*$# conceal
-          \ | setlocal concealcursor=n
-augroup end
-
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('cpp', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('jpg', 'magenta', 'none', 'magenta', '#151515')
-
-
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
-
-
-" toggle between number and relativenumber
-function! ToggleNumber()
-    if(&relativenumber == 1)
-        set norelativenumber
-        set number
-    else
-        set relativenumber
-    endif
-endfunc
-
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
-function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Status Line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The lightline.vim theme
 let g:lightline = {
-      \ 'colorscheme': 'purify',
+      \ 'colorscheme': 'darcula',
       \ }
 
+" Always show statusline
+set laststatus=2
 
-" lightline
-let g:lightline = {
-  \     'active': {
-  \         'left': [['mode', 'paste' ], ['readonly', 'filename', 'modified']],
-  \         'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding']]
-  \     }
-  \ }
+" Uncomment to prevent non-normal modes showing in powerline and below powerline.
+set noshowmode
 
-  set laststatus=2
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set expandtab                   " Use spaces instead of tabs.
+set smarttab                    " Be smart using tabs ;)
+set shiftwidth=4                " One tab == four spaces.
+set tabstop=4                   " One tab == four spaces.
 
-let g:lightline = {
-      \ 'component_function': {
-      \   'filetype': 'MyFiletype',
-      \   'fileformat': 'MyFileformat',
-      \ }
-      \ }
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Uncomment to autostart the NERDTree
+" autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+let NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize=38
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Theming
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+highlight LineNr           ctermfg=8    ctermbg=none    cterm=none
+highlight CursorLineNr     ctermfg=7    ctermbg=8       cterm=none
+highlight VertSplit        ctermfg=0    ctermbg=8       cterm=none
+highlight Statement        ctermfg=2    ctermbg=none    cterm=none
+highlight Directory        ctermfg=4    ctermbg=none    cterm=none
+highlight StatusLine       ctermfg=7    ctermbg=8       cterm=none
+highlight StatusLineNC     ctermfg=7    ctermbg=8       cterm=none
+highlight NERDTreeClosable ctermfg=2
+highlight NERDTreeOpenable ctermfg=8
+highlight Comment          ctermfg=4    ctermbg=none    cterm=italic
+highlight Constant         ctermfg=12   ctermbg=none    cterm=none
+highlight Special          ctermfg=4    ctermbg=none    cterm=none
+highlight Identifier       ctermfg=6    ctermbg=none    cterm=none
+highlight PreProc          ctermfg=5    ctermbg=none    cterm=none
+highlight String           ctermfg=12   ctermbg=none    cterm=none
+highlight Number           ctermfg=1    ctermbg=none    cterm=none
+highlight Function         ctermfg=1    ctermbg=none    cterm=none
+" highlight WildMenu         ctermfg=0       ctermbg=80      cterm=none
+" highlight Folded           ctermfg=103     ctermbg=234     cterm=none
+" highlight FoldColumn       ctermfg=103     ctermbg=234     cterm=none
+" highlight DiffAdd          ctermfg=none    ctermbg=23      cterm=none
+" highlight DiffChange       ctermfg=none    ctermbg=56      cterm=none
+" highlight DiffDelete       ctermfg=168     ctermbg=96      cterm=none
+" highlight DiffText         ctermfg=0       ctermbg=80      cterm=none
+" highlight SignColumn       ctermfg=244     ctermbg=235     cterm=none
+" highlight Conceal          ctermfg=251     ctermbg=none    cterm=none
+" highlight SpellBad         ctermfg=168     ctermbg=none    cterm=underline
+" highlight SpellCap         ctermfg=80      ctermbg=none    cterm=underline
+" highlight SpellRare        ctermfg=121     ctermbg=none    cterm=underline
+" highlight SpellLocal       ctermfg=186     ctermbg=none    cterm=underline
+" highlight Pmenu            ctermfg=251     ctermbg=234     cterm=none
+" highlight PmenuSel         ctermfg=0       ctermbg=111     cterm=none
+" highlight PmenuSbar        ctermfg=206     ctermbg=235     cterm=none
+" highlight PmenuThumb       ctermfg=235     ctermbg=206     cterm=none
+" highlight TabLine          ctermfg=244     ctermbg=234     cterm=none
+" highlight TablineSel       ctermfg=0       ctermbg=247     cterm=none
+" highlight TablineFill      ctermfg=244     ctermbg=234     cterm=none
+" highlight CursorColumn     ctermfg=none    ctermbg=236     cterm=none
+" highlight CursorLine       ctermfg=none    ctermbg=236     cterm=none
+" highlight ColorColumn      ctermfg=none    ctermbg=236     cterm=none
+" highlight Cursor           ctermfg=0       ctermbg=5       cterm=none
+" highlight htmlEndTag       ctermfg=114     ctermbg=none    cterm=none
+" highlight xmlEndTag        ctermfg=114     ctermbg=none    cterm=none
 
-" fzf colors
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vifm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>vv :Vifm<CR>
+map <Leader>vs :VsplitVifm<CR>
+map <Leader>sp :SplitVifm<CR>
+map <Leader>dv :DiffVifm<CR>
+map <Leader>tv :TabVifm<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VimWiki
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
-" indentLine
-let g:indentLine_setColors = 0
-let g:indentLine_char      = '┊'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim-Instant-Markdown
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:instant_markdown_autostart = 0         " Turns off auto preview
+let g:instant_markdown_browser = "surf"      " Uses surf for preview
+map <Leader>md :InstantMarkdownPreview<CR>   " Previews .md file
+map <Leader>ms :InstantMarkdownStop<CR>      " Kills the preview
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Open terminal inside Vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>tt :vnew term://fish<CR>
 
-function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Mouse Scrolling
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set mouse=nicr
 
-function! MyFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Splits and Tabbed Files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set splitbelow splitright
 
+" Remap splits navigation to just CTRL + hjkl
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-" nerdtree settings
-" nerdtree
+" Make adjusing split sizes a bit more friendly
+noremap <silent> <C-Left> :vertical resize +3<CR>
+noremap <silent> <C-Right> :vertical resize -3<CR>
+noremap <silent> <C-Up> :resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Change 2 split windows from vert to horiz or horiz to vert
+map <Leader>th <C-w>t<C-w>H
+map <Leader>tk <C-w>t<C-w>K
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" Removes pipes | that act as seperators on splits
+set fillchars+=vert:\ 
 
-let g:NERDTreeMinimalUI           = 1
-let NERDTreeDirArrows             = 1
-let g:NERDTreeWinPos              = 'left'
-let g:NERDTreeWinSize             = 20
-let g:NERDTreeStatusline          = "  "
-let g:NERDTreeDirArrowExpandable  = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾' 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Other Stuff
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:python_highlight_all = 1
 
+au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
+au BufEnter *.org            call org#SetOrgFileType()
 
-" gitgutter
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_sign_added                     = '+'
-let g:gitgutter_sign_modified                  = '±'
-let g:gitgutter_sign_removed                   = '-'
-let g:gitgutter_sign_removed_first_line        = '×'
-let g:gitgutter_sign_modified_removed          = '×'
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
 
-nmap ]c <Plug>GitGutterNextHunk
-nmap [c <Plug>GitGutterPrevHunk
-nmap <Leader>hs <Plug>GitGutterStageHunk
-nmap <Leader>hu <Plug>GitGutterUndoHunk
-
-
-" ale
-let g:ale_set_signs             = 1
-let g:ale_use_deprecated_neovim = 1
-let g:ale_sign_error            = '> '
-let g:ale_sign_warning          = '! '
-let b:ale_linters = ['pyflakes', 'flake8', 'pylint']
-let b:ale_fixers = ['eslint']
-let b:ale_fix_on_save = 1
-
-hi ALEErrorSign ctermfg=01 ctermbg=00
-hi ALEWarningSign ctermfg=06 ctermbg=00
-
-
-" fzf colors
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-" indentLine
-let g:indentLine_setColors = 0
-let g:indentLine_char      = '┊'
-
-
-" Purify colorscheme
-let g:purify_bold = 1        " default: 1
-let g:purify_italic = 1      " default: 1
-let g:purify_underline = 1   " default: 1
-let g:purify_undercurl = 1   " default: 1
-let g:purify_inverse = 1     " default: 1

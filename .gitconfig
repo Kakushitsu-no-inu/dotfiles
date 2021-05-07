@@ -1,5 +1,5 @@
 [user]
-    name = weiterins
+    name = nesterpnyi 
     email = weiterins@gmail.com
 [core]
     pager = less -S
@@ -226,3 +226,4 @@
     verbose = 1
 [cola]
     spellcheck = false
+
